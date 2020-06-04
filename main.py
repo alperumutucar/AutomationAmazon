@@ -9,8 +9,6 @@ import random
 #driver = webdriver.Chrome(executable_path='chromedriver_linux64/chromedriver')
 driver = webdriver.Firefox(executable_path='chromedriver_linux64/geckodriver')
 
-
-
 print('the previous part was for Amazon')
 driver.get('http://www.n11.com/')
 
@@ -23,8 +21,6 @@ assert "n11" in driver.title
 
 time.sleep(3)
 WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.menuTitle.nobg'))).click()
-
-
 
 
 WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.btnLogin'))).click()
@@ -76,8 +72,6 @@ time.sleep(2)
 assert "Ürününüz listeden silindi." in driver.find_element_by_css_selector('span.message').text #this works correctly.
 
 WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.btn.btnBlack.confirm'))).click()
-
-#naturgurgunson@gmail.com
 
 if False:
     driver.get('http://www.amazon.com/')
