@@ -10,6 +10,75 @@ import random
 driver = webdriver.Firefox(executable_path='chromedriver_linux64/geckodriver')
 
 
+
+print('the previous part was for Amazon')
+driver.get('http://www.n11.com/')
+
+element = WebDriverWait(driver, 10)
+driver.maximize_window()
+
+WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'span.btn'))).click()
+
+assert "n11" in driver.title
+
+time.sleep(3)
+WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.menuTitle.nobg'))).click()
+
+
+
+
+WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.btnLogin'))).click()
+
+window_after = driver.window_handles[1]
+
+driver.switch_to.window(window_after)
+
+
+WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#email'))).send_keys('naturgurgunson@gmail.com')
+WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#pass'))).send_keys('selenium123')
+WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#pass'))).send_keys(Keys.RETURN)
+
+driver.switch_to.window(driver.window_handles[0])
+
+print('burada')
+WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#searchData'))).send_keys("Samsung")
+WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.searchBtn'))).click()
+
+
+print('burada2')
+
+time.sleep(3)
+
+WebDriverWait(driver, 20).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, '.pagination a')))[1].click()
+
+print('burada3')
+
+
+WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, '#view .column .plink')))[2].click()
+
+#add to wishlist is here
+WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#getWishList'))).click()
+WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#addToFavouriteWishListBtn'))).click()
+
+
+WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'a.menuTitle'))).click()
+
+WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.accNav ul:nth-child(1) li:nth-child(5)'))).click()
+
+
+assert "Favorilerim (1)" in driver.find_element_by_css_selector('.listItemTitle').text
+
+WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, '.listItemWrap h4')))[0].click()
+
+WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.deleteProFromFavorites'))).click()
+
+time.sleep(2)
+assert "Ürününüz listeden silindi." in driver.find_element_by_css_selector('span.message').text #this works correctly.
+
+WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.btn.btnBlack.confirm'))).click()
+
+#naturgurgunson@gmail.com
+
 if False:
     driver.get('http://www.amazon.com/')
 
@@ -50,114 +119,3 @@ if False:
 
     ab7 = driver.find_element_by_css_selector('#wishListMainButton > span')
     ab7.click()
-
-print('the previous part was for Amazon')
-driver.get('http://www.n11.com/')
-
-element = WebDriverWait(driver, 10)
-driver.maximize_window()
-
-WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#userKvkkModal > div > div.btnHolder > span'))).click()
-
-assert "n11" in driver.title
-#n1 = driver.find_element_by_css_selector('#userKvkkModal > div > div.btnHolder > span')
-#n1.click()
-
-#WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#header > div > h1 > a > img'))).click()
-
-#n3 = driver.find_element_by_css_selector('#header > div > h1 > a > img')
-#n3.click()
-time.sleep(3)
-WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.menuTitle.nobg'))).click()
-
-#n2 = driver.find_element_by_class_name('btnSignIn')
-#n2.click()
-
-def human_type(element, text):
-    for char in text:
-        time.sleep(random.randint(1,3)) #fixed a . instead of a ,
-        element.send_keys(char)
-
-
-#el = driver.find_element_by_css_selector('#email')
-
-#human_type(el, "alper.ucar@useinsider.com")
-
-
-#email
-#time.sleep(1)
-#WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#email'))).send_keys("alper.ucar@useinsider.com")
-#driver.execute_script("$('#email')[0]['value'] = 'alper.ucar@useinsider.com'")
-#WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#password'))).send_keys("seleniumkeys123")
-#driver.execute_script("$('#password')[0]['value'] = 'seleniumtest123'")
-
-
-WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.btnLogin'))).click()
-
-#email
-window_after = driver.window_handles[1]
-
-driver.switch_to.window(window_after)
-
-
-WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#email'))).send_keys('naturgurgunson@gmail.com')
-WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#pass'))).send_keys('selenium123')
-WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#pass'))).send_keys(Keys.RETURN)
-
-driver.switch_to.window(driver.window_handles[0])
-
-
-#time.sleep(20) #BU ZAMAN ARALIĞI ELLE GİRİŞ YAPMAK İÇİN AYRILMIŞTIR
-
-
-
-#element_forgot_password = driver.find_element_by_css_selector(".forgotPassword")
-#driver.execute_script("arguments[0].setAttribute('class','forgotPassword myAccountMenu')", element_forgot_password)
-
-
-#time.sleep(10)
-#WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#loginButton'))).click()
-#driver.execute_script("$('#loginButton').click()")
-
-print('burada')
-WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#searchData'))).send_keys("Samsung")
-WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.searchBtn'))).click()
-
-
-#we need to scroll to the bottom of the page here
-#driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-#driver.execute_script("window.scrollTo(5, 0);")
-
-print('burada2')
-
-time.sleep(3)
-
-WebDriverWait(driver, 20).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, '.pagination a')))[1].click()
-
-print('burada3')
-
-#time.sleep(3)
-
-WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, '#view .column .plink')))[2].click()
-
-WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.addWishListBtn.b-dt-wishlist'))).click()
-
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#addToFavouriteWishListBtn'))).click()
-
-#time.sleep(2)
-WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'a.menuTitle'))).click()
-
-WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#myAccount > div.accMenu > div.accMenu-cover > div.accNav > ul > li:nth-child(5) > a'))).click()
-
-assert "Favorilerim (1)" in driver.find_element_by_css_selector('#myAccount > div.accContent > ul > li.wishGroupListItem.favorites > div > a > h4').text
-
-WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#myAccount > div.accContent > ul > li.wishGroupListItem.favorites > div > a > h4'))).click()
-
-WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.deleteProFromFavorites'))).click()
-
-time.sleep(2)
-assert "Ürününüz listeden silindi." in driver.find_element_by_css_selector('body > div.lightBox > div > span.message').text #this works correctly.
-
-WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.btn.btnBlack.confirm'))).click()
-
-#naturgurgunson@gmail.com
